@@ -15,7 +15,7 @@ from .views import (
     ManufacturerDeleteView,
     DriverCreateView,
     DriverDeleteView,
-    DriverLicenseUpdateView,
+    DriverUpdateView,
     assign_driver,
     remove_driver,
 )
@@ -58,8 +58,13 @@ urlpatterns = [
         name="driver-delete"
     ),
     path(
-        "driver/<int:pk>/update-license/",
-        DriverLicenseUpdateView.as_view(),
+        "driver/<int:pk>/update/",
+        DriverUpdateView.as_view(),
+        name="driver-update"
+    ),
+    path(
+        "drivers/<int:pk>/update/",
+        DriverUpdateView.as_view(),
         name="driver-license-update"
     ),
     path("car/<int:pk>/", CarDetailView.as_view(), name="car-detail"),
