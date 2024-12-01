@@ -123,22 +123,11 @@ class DriverDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("taxi:driver-list")
 
 
-class DriverUpdateView(generic.UpdateView):
+class DriverUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Driver
     form_class = DriverLicenseUpdateForm
     template_name = "taxi/driver_license_update_form.html"
     success_url = reverse_lazy("taxi:driver-list")
-
-    def form_invalid(self, form):
-        license_number = form.cleaned_data.get("license_number")
-        if license_number and (
-                (len(license_number) < 5 or not license_number.isalnum())
-        ):
-            form.add_error(
-                "license_number",
-                "License number must be at least 5 alphanumeric characters."
-            )
-        return super().form_invalid(form)
 
 
 @login_required
